@@ -1,0 +1,89 @@
+.form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-bottom: 0.4em;
+    background: linear-gradient(207deg, #1a1d1f 0%, #000000 100%);
+    border-radius: 10px;
+}
+#heading {
+    text-align: center;
+    margin: 2em;
+    color: rgb(255, 255, 255);
+    font-size: 1.4em;
+}
+.field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    border-radius: 16px;
+    padding: 0.6em;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: #171717;
+    box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.949);
+}
+.input-icon {
+    height: 1.3em;
+    width: 1.3em;
+    fill: white;
+}
+.input-field {
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    color: #d3d3d3;
+}
+.form .btnrow {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 2.5em;
+    margin-bottom: 2.5em;
+}
+.cusButton{
+    border: none;
+    outline: none;
+    color: rgb(234, 234, 234);
+    font-weight: 700;
+    transition: 0.6s;
+}
+.button1 {
+    background-color: rgb(14, 14, 26);
+    padding-left: 1.1em;
+    padding-right: 1.1em;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 5px;
+}
+.cusButton:active {
+    scale: 0.92;
+}
+.button1:hover {
+    background: rgb(2, 29, 78);
+    background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+    color: rgb(4, 4, 38);
+}
+.button2 {
+    background-color: rgb(26, 25, 14);
+    padding: 0.5em;
+    padding-left: 2.3em;
+    padding-right: 2.3em;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 5px;
+}
+.button2:hover {
+    background: rgb(78, 70, 2);
+    background: linear-gradient(90deg, #965500 0%,#FEDC01  60%);
+
+    color: rgb(38, 22, 4);
+}

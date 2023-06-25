@@ -1,0 +1,27 @@
+.header {
+    flex: 1;
+    flex-direction: row;
+    inset: 0;
+}
+
+.header-bg {
+    background: #141617;
+}
+
+
+
+.ticket-tracker {
+    color: #ffffff;
+    text-align: left;
+    font: 400 24px "Impact", sans-serif;
+    position: absolute;
+    left: 650px;
+    top: 82px;
+}
+
+.main-icon {
+    width: 70px;
+    height: 70px;
+    position: absolute;
+}
+

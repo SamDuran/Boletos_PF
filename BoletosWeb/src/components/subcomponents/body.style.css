@@ -1,0 +1,117 @@
+.event-catalog {
+    border-radius: 15px;
+    border: 3px solid #333637;
+    margin-inline: 13px;
+    margin-bottom: 13px;
+    display: flex;
+    position: absolute;
+    flex-wrap: wrap;
+    height: 58vh;
+
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.79) inset;
+    width: 95%;
+    overflow:auto ;
+}
+.event-catalog::-webkit-scrollbar {
+    width: 1.5vh;
+    background-color: transparent;
+}
+
+.event-catalog::-webkit-scrollbar-track {
+
+    background-color: transparent;
+    border-radius: 10px;
+}
+
+.event-catalog::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg,
+            rgba(254, 220, 1, 1) 0%,
+            rgba(253, 103, 0, 1) 100%);
+    border-radius: 12.5px;
+    
+    padding-right: 100px;
+}
+
+.card-bg {
+    box-sizing: border-box;
+    margin: 1.45vh;
+    cursor: pointer;
+    background: #242729;
+    border-width: 1px;
+    border-style: solid;
+    border-image: linear-gradient(147.93deg,
+            rgba(254, 220, 1, 1) 0%,
+            rgba(253, 103, 0, 1) 100%);
+    border-image-slice: 1;
+    width: 31%;
+    transition: .2s ease-in-out;
+    height: 60%;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.card-bg:hover {
+    border-width: 1px;
+    border-style: solid;
+    box-shadow: 0px 0px 10px 0px #FFDC5E;
+    
+    border-image: linear-gradient(147.93deg,
+            rgb(255, 246, 187) 0%,
+            rgb(255, 193, 151) 100%);
+            border-image-slice: 1;
+}
+
+.card-bg:active {
+    border-width: 1px;
+    border-style: solid;
+    box-shadow: 0px 0px 20px 0px #FFDC5E;
+    
+    border-image: linear-gradient(147.93deg,
+            rgb(255, 250, 216) 0%,
+            rgb(255, 217, 192) 100%);
+            border-image-slice: 1;
+}
+.event-image {
+    padding: 2px;
+    min-width: 50px;
+    width: 95%;
+    height: auto;
+    max-height: 80%;
+}
+.new-row{
+    clear: both;
+    width: 100%;
+}
+
+.card-bg:hover .divider{
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-image: linear-gradient(90.03deg,
+    rgb(255, 246, 187) 0%,
+    rgb(255, 193, 151) 100%);
+    border-image-slice: 1;
+    box-shadow: 0px 0px 10px 0px #FFDC5E;
+
+    width: 100%;
+    height: 0px;
+}
+.event-title{
+    text-transform: uppercase;
+}
+.card-bg:hover .event-title{
+    text-shadow: 0px 0px 10px #FFDC5E;
+}
+.divider {
+    margin-top: 7px;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-image: linear-gradient(90.03deg,
+            rgba(254, 220, 1, 1) 0%,
+            rgba(253, 103, 0, 1) 100%);
+    border-image-slice: 1;
+    
+    width: 100%;
+    height: 0px;
+}
