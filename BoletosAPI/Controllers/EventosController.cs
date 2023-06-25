@@ -141,6 +141,9 @@ namespace BoletosAPI.Controllers
         public async Task<ActionResult<List<Eventos>>> GetEventosByCategory(int categoryId, int pages = 1)
         {
             using var connection = new MySqlConnection(connectionString);
+            if (categoryId < 1)
+                return await GetEventos();
+
             var sql = @$"SELECT 
                             eventoid, e.boletosDisponibles, e.fechaEvento, nombreevento, e.descripcion,
                             e.userId, us.userId, us.usernombre, us.useremail,
@@ -279,6 +282,7 @@ namespace BoletosAPI.Controllers
             return Ok(eventosGuardados + sumatoria == e.Secciones.Count+1);
         }
 
+        
         #endregion
 
         #endregion

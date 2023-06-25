@@ -91,7 +91,6 @@ namespace BoletosAPI.Controllers
             return Ok(user>0);
         }
         #endregion
-
         #endregion
 
     }

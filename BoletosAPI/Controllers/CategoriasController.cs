@@ -25,7 +25,7 @@ namespace BoletosAPI.Controllers
         {
             using var connection = new MySqlConnection(conStr);
 
-            var sql = $@"SELECT * FROM categoriaeventos";
+            var sql = $@"SELECT * FROM categoriaeventos ORDER BY CategoriaId";
 
             var categorias = await connection.QueryAsync<CategoriaEventos>(sql);
 
