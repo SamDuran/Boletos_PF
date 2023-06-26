@@ -50,6 +50,16 @@ namespace BoletosAPI.Controllers
 
             return Ok(boleto);
         }
+
+        [HttpGet("seccion/{seccionid}")]
+        public async Task<ActionResult<Boletos>> GetBoletoByEvento_x_Seccion(int seccionid)
+        {
+            using var connection = new MySqlConnection(config.GetConnectionString("RemoteConnection"));
+
+            var boleto = await connection.QueryFirstAsync<Boletos>($"SELECT * FROM Boletos WHERE seccionid = {seccionid}");
+
+            return Ok(boleto);
+        }
         #endregion
 
 
