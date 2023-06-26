@@ -2,6 +2,7 @@ import "./Home.style.css"
 import Sidebar from "./subcomponents/sidebar";
 import React, { useState } from 'react';
 import { categorias } from '../api/categorias.tsx'
+import { ComprasController } from '../api/compras.tsx'
 import { BoletosComprados } from '../../models/Boletos.tsx'
 import { eventos } from '../api/eventos.tsx'
 import SearchBar from "./subcomponents/searchbar.tsx";
@@ -97,7 +98,7 @@ function Home() {
 export default Home
 
 
-function CarritoDialog({ onClose, opened, listaCompra}: { onClose: () => void, opened: boolean, listaCompra: BoletosComprados[]}) {
+function CarritoDialog({ onClose, opened, listaCompra }: { onClose: () => void, opened: boolean, listaCompra: BoletosComprados[] }) {
 
     const [email, setEmail] = React.useState<string>("")
     const emailRegex = /^(?=.{1,254}$)(?=.{1,64}@)[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+(\.[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+)*@[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$/;
@@ -107,6 +108,20 @@ function CarritoDialog({ onClose, opened, listaCompra}: { onClose: () => void, o
 
     const onCerrarClick = () => {
         onClose()
+    };
+    const comprar = async () => {
+        if(!email.match(emailRegex)){
+            alert("Debes colocar un email valido")
+            return
+        }
+        try {
+            const res = await ComprasController.buyBoletos(email, listaCompra);
+            if(res.data == false){
+                alert("No paso")
+            }
+        }catch (error) {
+            console.log(error)
+        }
     };
 
     return (
@@ -130,7 +145,7 @@ function CarritoDialog({ onClose, opened, listaCompra}: { onClose: () => void, o
                     {/* botones div */}
                     <div className="buttons-panel" >
                         <button onClick={onClose} className="bttn">Cancelar</button>
-                        <button className="bttn" >Comprar</button>
+                        <button onClick={comprar} className="bttn" >Comprar</button>
                     </div>
                 </ModalBody>
             </Modal>
