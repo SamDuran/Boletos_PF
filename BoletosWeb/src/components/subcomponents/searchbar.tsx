@@ -1,17 +1,14 @@
 import './searchbar.css'
 import React from 'react';
 
-function SearchBar({ OnSearch }: { OnSearch: (input: string) => void }) {
-    const handleInput = (input: string) => {
-        OnSearch(input)
-    }
+function SearchBar({ OnSearch, OnCheckCompraClick }: { OnSearch: (input: string) => void, OnCheckCompraClick: () => void}) {
     const [search, setSearch] = React.useState<string>("")
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
     };
     const buscarBTNClick = () =>{
-        handleInput(search)
+        OnSearch(search)
     };
     return (
         <>
@@ -28,7 +25,7 @@ function SearchBar({ OnSearch }: { OnSearch: (input: string) => void }) {
             <div className='filter-row'>
 
                 <div className="filter-field">
-                    <input placeholder='Ubicación' type='text' className='filter-input' />
+                    <input placeholder='Ubicación' type='text' readOnly className='filter-input' />
                     <svg className="icon" width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M13.1618 20.907C15.6673 18.7019 20.125 14.1967 20.125 10.0625C20.125 7.77501 19.2163 5.58121 17.5988 3.9637C15.9813 2.3462 13.7875 1.4375 11.5 1.4375C9.21251 1.4375 7.01871 2.3462 5.4012 3.9637C3.7837 5.58121 2.875 7.77501 2.875 10.0625C2.875 14.1967 7.33125 18.7019 9.83825 20.907C10.2955 21.3152 10.887 21.5408 11.5 21.5408C12.113 21.5408 12.7045 21.3152 13.1618 20.907ZM8.625 10.0625C8.625 9.3 8.9279 8.56873 9.46707 8.02957C10.0062 7.4904 10.7375 7.1875 11.5 7.1875C12.2625 7.1875 12.9938 7.4904 13.5329 8.02957C14.0721 8.56873 14.375 9.3 14.375 10.0625C14.375 10.825 14.0721 11.5563 13.5329 12.0954C12.9938 12.6346 12.2625 12.9375 11.5 12.9375C10.7375 12.9375 10.0062 12.6346 9.46707 12.0954C8.9279 11.5563 8.625 10.825 8.625 10.0625Z"
@@ -38,7 +35,7 @@ function SearchBar({ OnSearch }: { OnSearch: (input: string) => void }) {
                 </div>
 
                 <div className="filter-field">
-                    <input type='text' placeholder='dd/mm/yyyy' className='filter-input' />
+                    <input type='text' placeholder='dd/mm/yyyy' readOnly className='filter-input' />
                     <svg className="icon" width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_58_7)">
                             <path
@@ -63,7 +60,7 @@ function SearchBar({ OnSearch }: { OnSearch: (input: string) => void }) {
 
 
                 </div>
-                <button className="buy-button">
+                <button className="buy-button"  onClick={OnCheckCompraClick} >
                     <svg
                         width="32"
                         height="32"

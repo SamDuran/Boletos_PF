@@ -10,7 +10,7 @@ export const eventos = {
     getAllByCategory: function(categoryId:number){
         return instance.get(endpoint+"/byCategory/"+categoryId)
     },
-    addEvento : function(evento : Eventos){
-        return instance.post(endpoint,evento)
+    getEventoById: function(id:number){
+        return instance.get(endpoint+"/"+id)
     }
 }

@@ -12,7 +12,17 @@
     margin: 5px;
     text-decoration: underline;
     font-size: 36px;
+    cursor: pointer;
+    transition: .2s ease-in-out;
     color: #ffdc5e;
+}
+.nav-label:hover{
+    
+    text-shadow: 0 0 20px rgba(188, 255, 246, 0.597);
+}
+.nav-label:active{
+    scale: 105%;
+    text-shadow: 0 0 25px rgba(188, 255, 246, 0.738);
 }
 
 .nav-item {
@@ -25,7 +35,7 @@
     display: flex;
     font-size: 1.25em;
     min-width: 70%;
-    transition: .15s ease-out;
+    transition: .2s ease-out;
 
 }
 
@@ -39,6 +49,7 @@
 
 .nav-item:active {
     text-decoration: underline;
+    scale: 105%;
 }
 
 .nav-item:hover {
