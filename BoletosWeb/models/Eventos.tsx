@@ -1,18 +1,18 @@
-class Eventos{
-// #region PROPIEDADES
+export class Eventos {
+    // #region PROPIEDADES
+    boletos: Boletos[];
+    boletosDisponibles: number;
+    categoriaEventos: CategoriaEventos;
+    categoriaId: number;
+    creador: Usuarios;
+    descripcion: string;
     eventoId: number;
-    boletosDisponibles : number;
     fechaEvento: Date = new Date();
-    nombreEvento : string;
-    descripcion : string;
-    userId : number;
-    creador : Eventos;
-    categoriaId : number; 
-    categoria : CategoriaEventos;
-    ubicacionId : number;
-    ubicacion : Ubicaciones; 
-    secciones : Secciones[];
-    boletos : Boletos[];
+    nombreEvento: string;
+    secciones: Secciones[];
+    ubicacion: Ubicaciones;
+    ubicacionId: number;
+    userId: number;
 
-// #endregion
+    // #endregion
 }

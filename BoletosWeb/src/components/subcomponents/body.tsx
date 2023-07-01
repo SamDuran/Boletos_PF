@@ -34,7 +34,11 @@ function EventoCard({ evento, OnBoletosAgregados }: { evento: Eventos, OnBoletos
             <div className='card-bg' onClick={handleComponentClick} >
                 <img src='/src/components/resources/photo.png' className='event-image'></img>
                 <div className='divider' />
-                <span className='event-title'>{evento.nombreEvento}</span>
+                <div className='headers-row' >
+                    <span className='event-title'>{evento.nombreEvento}</span>
+                    <span className='event-title'>Creado por: {evento.creador.userNombre}</span>
+                </div>
+                <span className='event-category'>({evento.categoriaEventos.categoria})</span>
             </div>
             {dialogVisible && <CompraDialog evento={evento} onClose={closeDialog} opened={dialogVisible} OnBoletosAgregados={OnBoletosAgregados}/>}
         </>

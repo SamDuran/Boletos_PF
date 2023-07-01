@@ -220,3 +220,93 @@
     color: #fff3e6;
     
 }
+
+.detalles-div{
+    min-width: 95%;
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow:auto ;
+}
+.detalles-div::-webkit-scrollbar {
+    width: 1.5vh;
+    background-color: transparent;
+}
+
+.detalles-div::-webkit-scrollbar-track {
+
+    background-color: transparent;
+    border-radius: 10px;
+}
+
+.detalles-div::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg,
+            rgba(254, 220, 1, 1) 0%,
+            rgba(253, 103, 0, 1) 100%);
+    border-radius: 12.5px;
+    
+    padding-right: 100px;
+}
+.detalle-bg{
+
+    margin-top: 5%;
+    border-radius: 6px;
+    font-size: 85%;
+    background-color: #2D2E37;
+    border: 1px solid rgb(106, 116, 121);
+    height: 35%;
+    box-shadow: 0px 4px 10px 0px #000000 inset;
+    width: 30vw;
+    transition: .2s ease-in-out;
+}
+.detalle-bg:hover{
+    background-color: #363741;
+    scale: 102%;
+    box-shadow: 0px 4px 10px 0px #00000093 inset;
+    border: 1px solid rgb(141, 152, 158);
+}
+.detalle-row{
+    margin: 3%;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    display: flex;
+}
+.detalle-card{
+    flex-direction: column;
+    display: flex;
+}
+.cantidad-span{
+    margin-right: 35px;
+}
+.row{
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    display: flex;
+}
+.eliminarBTN{
+    background: linear-gradient(261.38deg,
+            rgba(254, 220, 1, 1) 15.10416716337204%,
+            rgba(253, 103, 0, 1) 100%);
+    border-radius: 6px;
+    border: none;
+    color: black;
+    outline: none;
+    transition: .2s ease-out;
+}
+
+.eliminarBTN:hover {
+    box-shadow: 1px 0px 5px #fff129, -1px 0px 5px #ff6629;
+    color: white;
+}
+
+.eliminarBTN:active {
+    background: linear-gradient(261.38deg,
+            rgb(255, 232, 85) 15.10416716337204%,
+            rgb(255, 145, 72) 100%);
+    color: rgb(0, 0, 0);
+    box-shadow: 0px 0px 10px 0px #fff129;
+}

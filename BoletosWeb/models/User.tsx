@@ -1,5 +1,5 @@
 
-class User {
+class Usuarios {
 // #region PROPIEDADES
     userId : number;
     userNombre : string; 

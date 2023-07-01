@@ -81,11 +81,18 @@
     min-width: 50px;
     width: 95%;
     height: auto;
-    max-height: 80%;
+    max-height: 78%;
 }
 .new-row{
     clear: both;
     width: 100%;
+}
+.headers-row{
+    width: 90%;
+    font-size: 85%;
+    display: flex;
+    justify-content: space-between;
+    align-items: space-between;
 }
 
 .card-bg:hover .divider{
@@ -103,7 +110,13 @@
 .event-title{
     text-transform: uppercase;
 }
+.event-category{
+    width: 90%;
+}
 .card-bg:hover .event-title{
+    text-shadow: 0px 0px 10px #FFDC5E;
+}
+.card-bg:hover .event-category{
     text-shadow: 0px 0px 10px #FFDC5E;
 }
 .divider {

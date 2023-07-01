@@ -156,11 +156,11 @@
 }
 
 .btn {
-    background: linear-gradient(-86.95deg,
-            rgba(17, 81, 177, 1) 0%,
-            rgba(133, 182, 255, 1) 100%);
-    border-radius: 12px;
-    border: 1px solid #98c1ff;
+    background: linear-gradient(261.38deg,
+            rgba(254, 220, 1, 1) 15.10416716337204%,
+            rgba(253, 103, 0, 1) 100%);
+    border-radius: 6px;
+    border: none;
     color: black;
 
     width: 20vw;

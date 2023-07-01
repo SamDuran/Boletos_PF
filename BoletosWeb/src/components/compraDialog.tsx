@@ -11,17 +11,17 @@ function CompraDialog({ evento, onClose, opened, OnBoletosAgregados }: { evento:
 
 
     const [boletos, addBoleto] = useState<BoletosComprados[]>([]);
-
+    let sumaCompra = 0;
     const [seccionesCantidad, setSeccionesCantidad] = useState<SeccionCantidad[]>([]);
 
-    const actualizarCantidad = (seccionId: number, cantidad: number, precio:number) => {
+    const actualizarCantidad = (seccionId: number, cantidad: number, precio: number) => {
         const seccionExistente = seccionesCantidad.find(sc => sc.seccionId === seccionId);
 
         if (seccionExistente) {
 
             const nuevasSecciones = seccionesCantidad.map(sc => {
                 if (sc.seccionId === seccionId) {
-                    return new SeccionCantidad(sc.seccionId, cantidad,precio);
+                    return new SeccionCantidad(sc.seccionId, cantidad, precio);
                 }
                 return sc;
             });
@@ -29,7 +29,7 @@ function CompraDialog({ evento, onClose, opened, OnBoletosAgregados }: { evento:
             setSeccionesCantidad(nuevasSecciones);
         } else {
 
-            const nuevasSecciones = [...seccionesCantidad, new SeccionCantidad(seccionId, cantidad,precio)];
+            const nuevasSecciones = [...seccionesCantidad, new SeccionCantidad(seccionId, cantidad, precio)];
             setSeccionesCantidad(nuevasSecciones);
         }
     };
@@ -49,19 +49,27 @@ function CompraDialog({ evento, onClose, opened, OnBoletosAgregados }: { evento:
     const onCerrarClick = () => {
         onClose()
     };
-    
-    const agregarBoleto = (boleto:Boletos, cantidadagregada: number, precio:number, lista:BoletosComprados[]) => {
-        lista.push(new BoletosComprados(boleto,cantidadagregada,precio))
+
+    const agregarBoleto = (boleto: Boletos, cantidadagregada: number, precio: number, lista: BoletosComprados[]) => {
+        lista.push(new BoletosComprados(boleto, cantidadagregada, precio))
     }
     const OnAgregarClick = async () => {
+        for (const seccionCantidad of seccionesCantidad) {
+            sumaCompra += seccionCantidad.cantidad
+        }
+        if (sumaCompra > evento.boletosDisponibles) {
+            alert('La cantidad deseada sobrepasa la cantidad disponible de boletos.')
+            return
+        }
         try {
-            const nuevosBoletos: BoletosComprados[] = []; 
+            const nuevosBoletos: BoletosComprados[] = [];
             for (const seccionCantidad of seccionesCantidad) {
                 const res = await boletoController.getBoletoBySeccion(seccionCantidad.seccionId);
-                const boletoData = res.data; 
-                agregarBoleto(boletoData,seccionCantidad.cantidad, seccionCantidad.precio,nuevosBoletos); 
+                const boletoData = res.data;
+
+                agregarBoleto(boletoData, seccionCantidad.cantidad, seccionCantidad.precio, nuevosBoletos);
             }
-            OnBoletosAgregados(nuevosBoletos); 
+            OnBoletosAgregados(nuevosBoletos);
             addBoleto((prevBoletos) => [...prevBoletos, ...nuevosBoletos]);
             onClose();
         } catch (error) {
@@ -125,7 +133,7 @@ function CompraDialog({ evento, onClose, opened, OnBoletosAgregados }: { evento:
 
 export default CompraDialog
 
-function SeccionCard({ seccion, cantidad, actualizarCantidad }: { seccion: Secciones; cantidad: number; actualizarCantidad: (seccionId: number, cantidad: number, precio:number) => void }) {
+function SeccionCard({ seccion, cantidad, actualizarCantidad }: { seccion: Secciones; cantidad: number; actualizarCantidad: (seccionId: number, cantidad: number, precio: number) => void }) {
     const [newCantidad, setCantidad] = useState(cantidad);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
