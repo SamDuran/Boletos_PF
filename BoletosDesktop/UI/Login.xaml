@@ -1,0 +1,56 @@
+﻿<Window x:Class="Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BoletosDesktop"
+        mc:Ignorable="d"
+        Style="{StaticResource CustomWindowStyle}"
+        Title="Login" Height="450" Width="800" WindowStyle="None" ResizeMode="NoResize" Icon="/BoletosPF_Icon.png" WindowStartupLocation="CenterScreen">
+    
+    
+    <Grid Margin="0,0,9,0">
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,19">
+            
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="107,0,0,0">
+                <Label HorizontalAlignment="Center" Margin="0,0,0,37" FontFamily="Tw Cen MT Condensed Extra Bold" FontSize="48">Inicio de sesión</Label>
+                <Image Source="/BoletosPF_Icon.png" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Width="260" Margin="30,65,0,0">
+                <!-- Usuario -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,31">
+                    <Label HorizontalAlignment="Left">Usuario</Label>
+                    <TextBox Width="189" Text="{Binding Path=LoginData.User, Mode=TwoWay}" Margin="20,0,0,0" KeyDown="EnterPressed" >
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="6"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                </StackPanel>
+
+                <!-- Contraseña -->
+                <StackPanel Orientation="Horizontal">
+                    <Label HorizontalAlignment="Left">Contraseña</Label>
+                    <PasswordBox x:Name="passwordBox" Loaded="PasswordBox_Loaded" PasswordChanged="PasswordBox_PasswordChanged" Width="189" Style="{StaticResource CustomPasswordBoxStyle}">
+                        
+                    </PasswordBox>
+                </StackPanel>
+                
+                <!-- Button Ingresar  -->
+                <Button Content="Ingresar" Margin="0,30,0,0" Foreground="White" BorderBrush="#FF8A3C3D" Background="#FFDA5A5C" FontWeight="Bold" Click="Button_Click">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+            
+            </StackPanel>
+        </StackPanel>
+        <Button Width="17" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,8,25,0" Background="#FFBBBBBB" FontWeight="Bold" Click="Minimizar">-</Button>
+            <Button Width="17" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,8,0,0" Background="#FFFF7373" FontWeight="Bold" Click="CerrarBTN_Click">x</Button>
+    </Grid>
+</Window>
