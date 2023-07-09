@@ -39,14 +39,15 @@ namespace BoletosAPI.Controllers
             var query = @$"SELECT
                                 *
                             FROM BPF_Usuarios
-                            WHERE USerNombre = {userName.ToSqlString()} AND UserClave = {userClave.ToSqlString()}";
+                            WHERE UserNombre = {userName.ToSqlString()} AND UserClave = {userClave.ToSqlString()}";
 
             var user = await connection.QueryAsync<Usuarios>(query);
 
             if(user.Count() == 0)
                 return NotFound();
+            
 
-            return Ok(user);
+            return Ok(user.First());
         }
 
 
