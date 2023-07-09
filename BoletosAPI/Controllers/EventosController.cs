@@ -252,12 +252,12 @@ namespace BoletosAPI.Controllers
         {
             using var connection = new MySqlConnection(connectionString);
 
-            var d = e.fechaEvento;
+            var d = e.FechaEvento;
 
             var fecha = $"{d.Year}-{d.Month}-{d.Day}";
 
             var sql = $@"INSERT INTO Eventos (NombreEvento, Descripcion, userId, CategoriaId, UbicacionId, FechaEvento, BoletosDisponibles)
-                        VALUES ({e.NombreEvento.ToSqlString()},{e.Descripcion.ToSqlString()},{e.UserId},{e.CategoriaId},{e.ubicacionId}, {fecha.ToSqlString()},{e.Boletos})";
+                        VALUES ({e.NombreEvento.ToSqlString()},{e.Descripcion.ToSqlString()},{e.UserId},{e.CategoriaId},{e.UbicacionId}, {fecha.ToSqlString()},{e.Boletos})";
             
             var eventosGuardados = await connection.ExecuteAsync(sql);
 
