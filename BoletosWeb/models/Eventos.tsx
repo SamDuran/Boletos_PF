@@ -6,6 +6,7 @@ export class Eventos {
     categoriaId: number;
     creador: Usuarios;
     descripcion: string;
+    foto: ArrayBuffer;
     eventoId: number;
     fechaEvento: Date = new Date();
     nombreEvento: string;

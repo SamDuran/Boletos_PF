@@ -53,6 +53,7 @@ function CompraDialog({ evento, onClose, opened, OnBoletosAgregados }: { evento:
     const agregarBoleto = (boleto: Boletos, cantidadagregada: number, precio: number, lista: BoletosComprados[]) => {
         lista.push(new BoletosComprados(boleto, cantidadagregada, precio))
     }
+    const imageUrl = URL.createObjectURL(new Blob([evento.foto]));
     const OnAgregarClick = async () => {
         for (const seccionCantidad of seccionesCantidad) {
             sumaCompra += seccionCantidad.cantidad
@@ -75,8 +76,9 @@ function CompraDialog({ evento, onClose, opened, OnBoletosAgregados }: { evento:
         } catch (error) {
             console.log(error);
         }
-    };
 
+    };
+    const unsafeImg = URL.createObjectURL(new Blob([evento.foto]));
     const fecha = new Date(evento.fechaEvento).toISOString().substring(0, 10);
     const lista = evento.secciones;
     return (
@@ -88,7 +90,9 @@ function CompraDialog({ evento, onClose, opened, OnBoletosAgregados }: { evento:
                 <ModalBody className="dialogBody" >
                     {/* PRESENTACION DIV */}
                     <div className="presentation-div">
-                        <img src="/src/components/resources/photo.png" className="event-img" />
+                        {evento.foto != null && <img src={unsafeImg} className='event-img'></img>}
+                        
+                        {evento.foto == null && <img src='/src/components/resources/photo.png' className='event-img'></img>}
                         {/* Datos DIV */}
                         <div className="data-div">
                             <div className="data-header">
