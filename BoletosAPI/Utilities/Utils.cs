@@ -2,7 +2,7 @@
 {
     public static class Utils
     {
-        public static string ToSqlString(this string input)
+        public static string ToSqlString(this string? input)
         {
             if (string.IsNullOrEmpty(input))
                 return "\'\'";

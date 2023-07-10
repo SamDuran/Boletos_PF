@@ -44,7 +44,6 @@ namespace BoletosAPI.Controllers
             var sql = $"SELECT * FROM Ubicacion WHERE UbicacionId = {id} LIMIT 1;";
 
             var ubicaciones = await connection.QueryAsync<Ubicaciones>(sql);
-            //,
             if (ubicaciones.Count() == 0)
                 return NotFound();
 
@@ -61,8 +60,8 @@ namespace BoletosAPI.Controllers
                         VALUES ({u.Ubicacion.ToSqlString()},{u.Latitud},{u.Longitud},{u.Especificaciones.ToSqlString()});";
 
             var ubicacion = await connection.ExecuteAsync(sql);
-
-            return Ok(ubicacion > 0);
+            var lastInsertedId = connection.QuerySingle<int>("SELECT LAST_INSERT_ID()");
+            return Ok(lastInsertedId);
         }
     }
 }

@@ -7,6 +7,7 @@
         public DateTime FechaEvento { get; set; } = DateTime.Now;
         public string NombreEvento { get; set; } = string.Empty;
         public string Descripcion { get; set; } = string.Empty;
+        public Byte[]? Foto { get; set; }
         public int UserId { get; set; }
         public Usuarios Creador { get;set; } = null!;
         public int CategoriaId { get; set; }

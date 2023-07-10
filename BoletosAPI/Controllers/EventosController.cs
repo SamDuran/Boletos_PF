@@ -30,11 +30,11 @@ namespace BoletosAPI.Controllers
         /// <param name="pages">The numbers of pages that you want to charge.</param>
         /// <returns>All non-ocurring events as a list</returns>
         [HttpGet]
-        public async Task<ActionResult<List<Eventos>>> GetEventos(int pages = 1)
+        public async Task<ActionResult<List<Eventos>>> GetEventos()
         {
             using var connection = new MySqlConnection(connectionString);
             var sql = @$"SELECT
-                            eventoid, e.boletosDisponibles, e.fechaEvento, nombreevento, e.descripcion,
+                            eventoid, e.boletosDisponibles, e.fechaEvento, nombreevento, e.descripcion, e.foto,
                             e.userId, us.userId, us.usernombre, us.useremail,
                             e.categoriaId, ce.categoriaId, ce.categoria,
                             e.ubicacionId, u.ubicacionId, u.ubicacion, IFNULL(u.latitud,0) AS 'latitud', IFNULL(u.longitud,0) AS 'longitud', IFNULL(u.especificaciones,'') AS 'especificaciones'
@@ -42,8 +42,7 @@ namespace BoletosAPI.Controllers
                         LEFT JOIN BPF_Usuarios AS Us ON Us.userid = e.userid                         
                         INNER JOIN categoriaeventos AS ce ON ce.categoriaId = E.categoriaId
                         INNER JOIN Ubicacion AS u ON u.ubicacionId = e.ubicacionId
-                        WHERE FechaEvento > Current_Date()
-                        LIMIT {15 * pages}; ";
+                        WHERE FechaEvento > Current_Date()";
 
             var eventos = await connection.QueryAsync<Eventos, Usuarios, CategoriaEventos, Ubicaciones, Eventos>(sql, (evento, user, categoria, ubicacion) =>
                 {
@@ -87,7 +86,7 @@ namespace BoletosAPI.Controllers
         {
             using var connection = new MySqlConnection(connectionString);
             var sql = @$"SELECT 
-                            eventoid, e.boletosDisponibles, e.fechaEvento, nombreevento, e.descripcion,
+                            eventoid, e.boletosDisponibles, e.fechaEvento, nombreevento, e.descripcion, e.foto,
                             e.userId, us.userId, us.usernombre, us.useremail,
                             e.categoriaId, ce.categoriaId, ce.categoria,
                             e.ubicacionId, u.ubicacionId, u.ubicacion, IFNULL(u.latitud,0) AS 'latitud', IFNULL(u.longitud,0) AS 'longitud', IFNULL(u.especificaciones,'') AS 'especificaciones'
@@ -135,17 +134,16 @@ namespace BoletosAPI.Controllers
         /// This method return all the available events with date higher than today and with the categoryId like the given parameter
         /// </summary>
         /// <param name="categoryId">The specific categoryId that matches the category in which the events you want to find are located</param>
-        /// <param name="pages">The numbers of pages that you want to charge.</param>
         /// <returns>All non-ocurring events, as a list, that their categoryId matches with the given parameter.</returns>
         [HttpGet("byCategory/{categoryId}")]
-        public async Task<ActionResult<List<Eventos>>> GetEventosByCategory(int categoryId, int pages = 1)
+        public async Task<ActionResult<List<Eventos>>> GetEventosByCategory(int categoryId)
         {
             using var connection = new MySqlConnection(connectionString);
             if (categoryId < 1)
                 return await GetEventos();
 
             var sql = @$"SELECT 
-                            eventoid, e.boletosDisponibles, e.fechaEvento, nombreevento, e.descripcion,
+                            eventoid, e.boletosDisponibles, e.fechaEvento, nombreevento, e.descripcion, e.foto,
                             e.userId, us.userId, us.usernombre, us.useremail,
                             e.categoriaId, ce.categoriaId, ce.categoria,
                             e.ubicacionId, u.ubicacionId, u.ubicacion, IFNULL(u.latitud,0) AS 'latitud', IFNULL(u.longitud,0) AS 'longitud', IFNULL(u.especificaciones,'') AS 'especificaciones'
@@ -153,8 +151,7 @@ namespace BoletosAPI.Controllers
                         LEFT JOIN BPF_Usuarios AS Us ON Us.userid = e.userid                         
                         INNER JOIN categoriaeventos AS ce ON ce.categoriaId = E.categoriaId
                         INNER JOIN Ubicacion AS u ON u.ubicacionId = e.ubicacionId
-                        WHERE FechaEvento > Current_Date() AND e.categoriaId = {categoryId}
-                        LIMIT {15 * pages};";
+                        WHERE FechaEvento > Current_Date() AND e.categoriaId = {categoryId}";
 
             var eventos = await connection.QueryAsync<Eventos, Usuarios, CategoriaEventos, Ubicaciones, Eventos>(sql, (evento, user, categoria, ubicacion) =>
             {
@@ -193,10 +190,9 @@ namespace BoletosAPI.Controllers
         /// This method return all the events performed for the user that match with the given UserId
         /// </summary>
         /// <param name="UserId">The specific categoryId that matches the category in which the events you want to find are located</param>
-        /// <param name="pages">The numbers of pages that you want to charge.</param>
         /// <returns>All non-ocurring events, as a list, that their categoryId matches with the given parameter.</returns>
         [HttpGet("byUserId/{UserId}")]
-        public async Task<ActionResult<List<Eventos>>> GetEventosByUserId(int UserId, int pages = 1)
+        public async Task<ActionResult<List<Eventos>>> GetEventosByUserId(int UserId)
         {
             using var connection = new MySqlConnection(connectionString);
             var sql = @$"SELECT 
@@ -208,8 +204,7 @@ namespace BoletosAPI.Controllers
                         LEFT JOIN BPF_Usuarios AS Us ON Us.userid = e.userid                         
                         INNER JOIN categoriaeventos AS ce ON ce.categoriaId = E.categoriaId
                         INNER JOIN Ubicacion AS u ON u.ubicacionId = e.ubicacionId
-                        WHERE FechaEvento > Current_Date() AND e.userId = {UserId}
-                        LIMIT {15 * pages};";
+                        WHERE FechaEvento > Current_Date() AND e.userId = {UserId}";
 
             var eventos = await connection.QueryAsync<Eventos, Usuarios, CategoriaEventos, Ubicaciones, Eventos>(sql, (evento, user, categoria, ubicacion) =>
             {
@@ -252,16 +247,27 @@ namespace BoletosAPI.Controllers
         {
             using var connection = new MySqlConnection(connectionString);
 
-            var d = e.FechaEvento;
+            var d = DateTime.Parse(e.FechaEvento);
 
-            var fecha = $"{d.Year}-{d.Month}-{d.Day}";
+            var sql = @"INSERT INTO Eventos (NombreEvento, Descripcion, userId, CategoriaId, UbicacionId, FechaEvento, BoletosDisponibles, Foto)
+            VALUES (@NombreEvento, @Descripcion, @UserId, @CategoriaId, @UbicacionId, @FechaEvento, @Boletos, @Foto)";
 
-            var sql = $@"INSERT INTO Eventos (NombreEvento, Descripcion, userId, CategoriaId, UbicacionId, FechaEvento, BoletosDisponibles)
-                        VALUES ({e.NombreEvento.ToSqlString()},{e.Descripcion.ToSqlString()},{e.UserId},{e.CategoriaId},{e.UbicacionId}, {fecha.ToSqlString()},{e.Boletos})";
             
-            var eventosGuardados = await connection.ExecuteAsync(sql);
+                var parameters = new
+                {
+                    NombreEvento = e.NombreEvento,
+                    Descripcion = e.Descripcion,
+                    UserId = e.UserId,
+                    CategoriaId = e.CategoriaId,
+                    UbicacionId = e.UbicacionId,
+                    FechaEvento = e.FechaEvento,
+                    Boletos = e.Boletos,
+                    Foto = e.Foto
+                };
 
-            var lastInsertedId = connection.QuerySingle<int>("SELECT LAST_INSERT_ID()");
+                var eventosGuardados = await connection.ExecuteAsync(sql, parameters);
+
+                var lastInsertedId = connection.QuerySingle<int>("SELECT LAST_INSERT_ID()");
             var lastDetailId = 1;
             var sumatoria = 0;
             foreach (var detalle in e.Secciones)
