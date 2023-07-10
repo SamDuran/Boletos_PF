@@ -1,11 +1,19 @@
-﻿Imports System.Net.Http
-Imports System.ComponentModel
-Imports System.Security.Policy
+﻿Imports System.ComponentModel
+Imports System.Text.Json
+Imports System.Net.Http
 
 Public Class Login
     Property ViewModel As New LoginViewModel()
     Public Sub New()
+        InitializeComponent()
         DataContext = ViewModel
+
+        If Debugger.IsAttached Then
+            ViewModel.LoginData.User = "SamDuran"
+            ViewModel.LoginData.Clave = "Samuel19"
+            Logear()
+        End If
+
     End Sub
 
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
@@ -17,20 +25,17 @@ Public Class Login
             Dim apiUrl As String = $"{Application.API_URL}api/Usuario?userName={ViewModel.LoginData.User}&userClave={ViewModel.LoginData.Clave}"
 
             Dim response As HttpResponseMessage = Await httpClient.GetAsync(apiUrl)
-
-            ' Verificar si la solicitud fue exitosa
             If response.IsSuccessStatusCode Then
-                ' Leer el contenido de la respuesta
+
                 Dim responseContent As String = Await response.Content.ReadAsStringAsync()
-                Dim main = New MainWindow(ViewModel.LoginData.User)
+
+                Dim userModel As Usuarios = JsonSerializer.Deserialize(Of Usuarios)(responseContent)
+
+                Dim main = New MainWindow(userModel)
                 main.Show()
                 Close()
-                ' Procesar el contenido de la respuesta según sea necesario
-                ' ...
             Else
-                ' Manejar el caso en que la solicitud no fue exitosa
                 MessageBox.Show("No se pudo logear")
-                ' ...
             End If
         End Using
     End Sub

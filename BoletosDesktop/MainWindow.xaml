@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BoletosDesktop"
         mc:Ignorable="d"
-        Title="Home" Height="450" Width="800" Icon="/BoletosPF_Icon.png" WindowStartupLocation="CenterScreen"  >
+        Title="Home" Height="296" Width="520" Icon="/BoletosPF_Icon.png" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Closing="OnMainClose"  >
     <Grid>
-        
+        <Label x:Name="BienvenidoLabel" HorizontalAlignment="Center" Margin="0,16,0,0" FontFamily="Agency FB" FontSize="18">Bienvenid@</Label>
+        <Button x:Name="NewEvent" Content="Nuevo Evento" HorizontalAlignment="Left" Margin="106,138,0,0" VerticalAlignment="Top" Width="99" Height="51" Click="Button_Click"/>
+        <Button x:Name="SeeEvents" Content="Ver mis eventos" HorizontalAlignment="Left" Margin="310,138,0,0" VerticalAlignment="Top" Width="99" Height="51" IsEnabled="False" />
+
     </Grid>
 </Window>

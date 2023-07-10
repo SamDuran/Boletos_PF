@@ -1,0 +1,80 @@
+﻿<Window x:Class="rEventos"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BoletosDesktop"
+        mc:Ignorable="d"
+        Title="rEventos" Height="450" Width="1050" ResizeMode="CanMinimize" Icon="/BoletosPF_Icon.png" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+    <Grid >
+        <StackPanel Orientation="Horizontal">
+            <!-- Campos -->
+            <StackPanel Orientation="Vertical" Margin="20,46,0,10">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <Label>Nombre del evento</Label>
+                    <TextBox Text="{Binding NombreEvento}" Width="140" Margin="27,0,0,0"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <Label>Descripción del evento</Label>
+                    <TextBox Text="{Binding Descripcion}" Width="140" Margin="9,0,0,0"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <Label>Cantidad de boletos</Label>
+                    <TextBox Text="{Binding BoletosDisponibles}" Width="140" Margin="23,0,0,0"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <Label>Categoria del evento</Label>
+                    <ComboBox x:Name="CategoriaComboBox" SelectedIndex="0" Width="140" Margin="19,0,0,0"></ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <Label>Secciones</Label>
+                        <Button Margin="78,0,0,0" Width="139" Click="Button_Click">Agregar sección</Button>
+                    </StackPanel>
+                    <DataGrid x:Name="SeccionesDataGrid" AutoGenerateColumns="False" Width="279.913333333333" Height="185">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Sección" Binding="{Binding Seccion}" Width="180" CanUserSort="False" CanUserResize="False"/>
+                            <DataGridTextColumn Header="Precio" CanUserSort="False" Binding="{Binding Precio}" Width="*" CanUserResize="False"/>
+                        </DataGrid.Columns>
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridCell">
+                                <EventSetter Event="PreviewMouseRightButtonDown" Handler="DataGridCell_PreviewMouseRightButtonDown"/>
+                            </Style>
+                        </DataGrid.Resources>
+                    </DataGrid>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="30,0,0,0">
+
+                <StackPanel Orientation="Horizontal" Margin="0,46,0,5">
+                    <Label>Ubicacion del evento</Label>
+                    <TextBox x:Name="UbicacionTb" Text="{Binding Ubicacion.Ubicacion}" Width="140" Margin="27,0,0,0"></TextBox>
+                </StackPanel>
+                <StackPanel Margin="0,30,0,0" >
+                    <Label HorizontalAlignment="Center">¿Deseas agregar un marcador en el mapa?</Label>
+                    <Grid Height="251">
+                        <m:Map Name="map" CredentialsProvider="Hfe1kTFyMzcPjpiDiBrT~KXXQEOUyxueSN9uZOXX0Tw~Aj0SETCJ8XOxscbyOaSH8ntTDdmDgCHxToQpKW94YRw22xxXzCD_t_JG5JXBHNxC" />
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Margin="50,0,0,0">
+                    <Label HorizontalAlignment="Center" Margin="0,20,0,0">Imagen</Label>
+                    <Grid AllowDrop="True" Drop="Grid_Drop" MouseDown="Grid_MouseDown"  Width="250" Height="200" HorizontalAlignment="Center" Background="White">
+                        <Image x:Name="ImageViewer"  />
+                    </Grid>
+                </StackPanel>
+                <StackPanel Margin="50,0,0,0">
+                    <Label HorizontalAlignment="Center" Margin="0,20,0,0">fecha del evento</Label>
+                    <DatePicker Text="{Binding FechaEvento}"/>
+                </StackPanel>
+
+            </StackPanel>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center"  Width="134">
+                <Button x:Name="CleanBTN" VerticalAlignment="Center" Width="94" Height="50" Margin="0,0,0,20" BorderBrush="#FF68CCE6" Background="#FFB2E1FF">Limpiar</Button>
+                <Button x:Name="SaveBTN" VerticalAlignment="Center" Width="94" Height="50" Background="#FF8DE892" BorderBrush="#FF54C861">Guardar</Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
